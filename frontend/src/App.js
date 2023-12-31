@@ -1,6 +1,7 @@
 import axios from 'axios';
 import './App.css';
 import React, { useEffect, useRef, useState } from 'react';
+import BASE_URL from process.env.BASE_URL
 
 function App() {
   const msgform = useRef();
