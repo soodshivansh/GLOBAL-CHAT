@@ -1,7 +1,7 @@
 import axios from 'axios';
 import './App.css';
 import React, { useEffect, useRef, useState } from 'react';
-import BASE_URL from process.env.BASE_URL
+// const BASE_URL = process.env.BASE_URL;
 
 function App() {
   const msgform = useRef();
@@ -11,7 +11,7 @@ function App() {
 
   const userAuthThroughServer = async (formData) => {
     try {
-      const response = await axios.post(`${BASE_URL}/sendmessages`, formData);
+      const response = await axios.post(`http://localhost:4000/sendmessages`, formData);
       const newMessage = response.data; // Assuming the server returns the new message
 
       // Update the local state with the new message
@@ -25,6 +25,11 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Checking if the msg is empty
+    if (!text.trim()) {
+      return;
+    }
 
     let form = new FormData(msgform.current);
     let formData = {};
@@ -44,7 +49,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/getmessages`);
+        const response = await axios.get(`http://localhost:4000/getmessages`);
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
