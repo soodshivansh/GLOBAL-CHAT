@@ -11,7 +11,7 @@ function App() {
 
   const userAuthThroughServer = async (formData) => {
     try {
-      const response = await axios.post(`http://localhost:4000/sendmessages`, formData);
+      const response = await axios.post(`https://global-chat-backend.onrender.com/sendmessages`, formData);
       const newMessage = response.data; // Assuming the server returns the new message
 
       // Update the local state with the new message
@@ -49,7 +49,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/getmessages`);
+        const response = await axios.get(`https://global-chat-backend.onrender.com/getmessages`);
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
