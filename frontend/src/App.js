@@ -68,7 +68,7 @@ function App() {
     <div className="flex flex-col gap-10 h-screen items-center justify-center">
       <h1 className='text-2xl font-semibold text-white'>GLOBAL - CHAT</h1>
 
-      <div className='flex flex-col bg-gray-400 h-[70vh] w-[80vh] p-5 items-center justify-end gap-5'>
+      <div className='flex flex-col bg-gray-400 h-[70vh] w-full max-w-[80vh] p-5 items-center justify-end gap-5'>
         <div ref={messagesContainerRef} className='w-full flex flex-col gap-2 overflow-y-hidden'>
             {data.map((item, index) => (
                 <div className='w-full flex justify-start'>
@@ -87,7 +87,7 @@ function App() {
             onChange={(e) => setText(e.target.value)}
             className='w-full h-12 flex p-5'
           />
-          <button type='submit' className='h-12 w-24 bg-green-200 hover:bg-green-950 hover:text-white'>
+          <button type='submit' className='h-12 w-full max-w-24 bg-green-200 hover:bg-green-950 hover:text-white'>
             SEND
           </button>
         </form>
