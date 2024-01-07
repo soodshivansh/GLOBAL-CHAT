@@ -15,6 +15,7 @@ function ChatPage() {
 
     const { name } = useParams();
 
+
     const userAuthThroughServer = async (formData) => {
         try {
         const response = await axios.post(`https://global-chat-backend.onrender.com/sendmessages`, formData);
@@ -49,6 +50,7 @@ function ChatPage() {
         await userAuthThroughServer(formData);
 
         setText("");
+        messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight; // Scroll to the bottom of the container
     };
 
     const fetchData = async () => {
@@ -58,6 +60,7 @@ function ChatPage() {
         } catch (error) {
           console.error('Error fetching data:', error);
         }
+        
     };
 
     const updateData = () => {
@@ -76,10 +79,6 @@ function ChatPage() {
         return () => clearInterval(intervalId);
       }, []);
 
-    useEffect(() => {
-        // Scroll to the bottom of the container
-        messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
-    }, [data]);
 
     function getRandomColor() {
         const letters = '0123456789ABCDEF';
@@ -102,7 +101,7 @@ function ChatPage() {
             <Toaster />
 
             <div className='flex flex-col bg-gray-400 h-[70vh] w-full max-w-[80vh] p-5 items-center justify-end gap-5'>
-                <div ref={messagesContainerRef} className='w-full flex flex-col gap-2 overflow-y-hidden'>
+                <div ref={messagesContainerRef} className='w-full flex flex-col gap-2 overflow-y-scroll'>
                     {data.map((item, index) => (
                         <div className={`w-full flex ${owner === item.owner ? 'justify-end' : 'justify-start'}`}>
                         <div key={index} className='bg-white rounded-xl md:w-[40vh] w-[30vh] p-2 flex flex-col items-center justify-center'>
