@@ -31,6 +31,14 @@ function SignUpPage() {
         formData[key] = value ;
     }
 
+    const {name,password} = formData;
+
+    // Checking if the msg is empty
+    if (!name.trim() || !password.trim()) {
+      toast.error("Empty field !")
+      return;
+    }
+
     userAuthThroughServer(formData);
 
   }
