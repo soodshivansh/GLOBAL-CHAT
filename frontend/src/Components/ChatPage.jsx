@@ -51,19 +51,30 @@ function ChatPage() {
         setText("");
     };
 
-    useEffect(() => {
-        setOwner(name);
-        const fetchData = async () => {
+    const fetchData = async () => {
         try {
-            const response = await axios.get(`https://global-chat-backend.onrender.com/getmessages`);
-            setData(response.data);
+          const response = await axios.get('https://global-chat-backend.onrender.com/getmessages');
+          setData(response.data);
         } catch (error) {
-            console.error('Error fetching data:', error);
+          console.error('Error fetching data:', error);
         }
-        };
+    };
 
+    const updateData = () => {
         fetchData();
-    }, []);
+    };
+
+    useEffect(() => {
+        updateData(); // Initial call
+        setOwner(name);
+    
+        const intervalId = setInterval(() => {
+          updateData(); // Call the function every 2 seconds
+        }, 2000);
+    
+        // Cleanup the interval when the component unmounts
+        return () => clearInterval(intervalId);
+      }, []);
 
     useEffect(() => {
         // Scroll to the bottom of the container
